@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale = 1.0, user-scalable=0"/>
+    <title>开发记录</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Panel title</h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <p>1. 移动端横向滚动条  隐藏</p>
+                    <p style="text-indent: 10px;">
+                        移动端使用原生滚动条 要加-webkit-overflow-scrolling: touch。  一般可以加在body上面，这样很方便。 不过这样可能会出现问题，
+                        闪屏。。  所以最好加在需要的dom上。
+                    </p>
+                    <p  style="text-indent: 10px;">
+                        我们如果想用原生滚动条，并且想隐藏滚动条，需要设置 滚动的dom高度比父级高11px，然后父级元素overflow-y:hidden, 这样就可以把滚动条给覆盖掉。
+                    </p>
+                </div>
+                <div>
+                    <p>2. 移动端局部滚动条 常见问题</p>
+                    <p  style="text-indent: 10px;">
+                        这种常见的是 局部滚动条， 使用原生局部滚动条的时候  滑动的时候 会触发全局滚动， 并且有时候触发不了。针对这种情况，
+                        有些人选择使用框架 iscroll， 我还是比较喜欢原生的。 解决这个问题。 只需要用 ScrollFix，github即可。 其实就是在滑动到头部，或者底部的时候，
+                        js给 局部滚动scrollTop 设置为1 or 局部滚动的区域 高度－1.
+                    </p>
+                    <p>
+                        var ScrollFix = function(elem) {
+                        // Variables to track inputs
+                        var startY, startTopScroll;
+
+                        elem = document.querySelector(elem);
+
+                        // If there is no element, then do nothing
+                        if(!elem)
+                        return;
+
+                        // Handle the start of interactions
+                        elem.addEventListener('touchstart', function(event){
+                        startY = event.touches[0].pageY;
+                        startTopScroll = elem.scrollTop;
+
+                        if(startTopScroll <= 0)
+                        elem.scrollTop = 1;
+
+                        if(startTopScroll + elem.offsetHeight >= elem.scrollHeight)
+                        elem.scrollTop = elem.scrollHeight - elem.offsetHeight - 1;
+                        }, false);
+                        };
+                    </p>
+                </div>
+            </div>
+            <div class="panel-footer">
+                    附带一个 移动端开发规范。 http://alloyteam.github.io/Spirit/modules/Standard/index.html
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            console.log("只是为了怕忘记，随便写下。 因为之前项目也就这几个问题 比较麻烦， 不想使用第三方框架。");
+        })
+    </script>
+</body>
+</html>
